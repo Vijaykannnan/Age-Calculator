@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Age Calculator</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    .container {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .box {
+      background: tomato;
+      padding: 15px;
+      width: 50%;
+      min-height: 60%;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .box input {
+      outline: none;
+      padding: 15px;
+      font-size: 18px;
+      width: 80%;
+      text-align: center;
+    }
+
+    .box button {
+      display: block;
+      margin: 30px auto;
+      padding: 10px;
+      color: #fff;
+      font-weight: bold;
+      background: royalBlue;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 19px;
+    }
+
+    .box p {
+      font-size: 20px;
+      margin: 20px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    @media all and (max-width :370px) {
+      .box p {
+        font-size: 17px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Age Calculator</h1><br>
+    <div class="box">
+      <input type="datetime-local" placeholder="Enter your Age" />
+      <!--datetime-local nah date and time, 2 um aye varum-->
+      <button onclick="calculate()">Calculate</button>
+      <div class="content">
+        <p id="years"></p>
+        <p id="months"></p>
+        <p id="weeks"></p>
+        <p id="days"></p>
+        <p id="hours"></p>
+        <p id="minutes"></p>
+        <p id="seconds"></p>
+      </div>
+    </div>
+  </div>
+  <script>
+    function calculate() {
+      // let allPtag = document.querySelectorAll("p");
+
+      // let ye = document.querySelector("#years");
+
+      let dateTimeInput = document.querySelector("input").value;
+
+      console.log("input val", dateTimeInput);
+
+      //when user did not select anything but they clicked btn
+      if (dateTimeInput.length == 0) {
+        return;
+      }
+
+      //calculate old date to today date
+      let Old = new Date(dateTimeInput);
+
+      let oldTime = Old.getTime();
+
+      let New = new Date();
+
+      let newTime = New.getTime();
+
+      let values = newTime - oldTime;
+
+
+      console.log("diff val", values);
+      //using the values alter a sec,hours,min with the formulas
+      let sec = Math.floor(values / 1000);
+
+      let min = Math.floor(values / (1000 * 60));
+
+      let hours = Math.floor(values / (1000 * 60 * 60));
+
+      let days = Math.floor(values / (1000 * 60 * 60 * 24));
+
+      let weeks = Math.floor(values / (1000 * 60 * 60 * 24 * 7));
+
+      let months = Math.floor(values / (1000 * 60 * 60 * 24 * 30.4375));
+
+      let years = Math.floor(values / (1000 * 60 * 60 * 24 * 365.25));
+
+      console.log(
+        "sec- " + sec + ",",
+        "min- " + min + ",",
+        "hours- " + hours + ",",
+        "days- " + days + ",",
+        "weeks- " + weeks + ",",
+        "months- " + months + ",",
+        "years- " + years
+      );
+
+      //rendered into the dom
+      let sended = function (x, y) {
+        document.querySelector(x).textContent = y; //variable ah querySelector ulla pass pannah mudikuathu therijikoo
+      };
+      sended("#years", years + " -Years");
+      sended("#months", months + " -Months");
+      sended("#weeks", weeks + " -Weeks");
+      sended("#days", days + " -Days");
+      sended("#hours", hours + " -Hours");
+      sended("#minutes", min + " -Minutes");
+      sended("#seconds", sec + " -Seconds");
+
+      // setInterval(calculate, 1000);
+    }
+  </script>
+</body>
+
+</html>
